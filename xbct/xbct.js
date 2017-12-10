@@ -283,7 +283,7 @@ function getNodeType(type){
 
 //Node Object
 
-function Node(arktos,domid,nodeName, id, domNumber,nodeType,attribute_name,attribute_value,x0,y0,x1,y1,clickable,xpath,zindex,visible) {
+function Node(arktos,domid,nodeName, id, domNumber,nodeType,x0,y0,x1,y1,clickable,xpath,zindex,visible) {
 	if(arktos==null || arktos==undefined){
 		this.arktos=0;
 	}
@@ -296,8 +296,6 @@ function Node(arktos,domid,nodeName, id, domNumber,nodeType,attribute_name,attri
     this.id = id;
     this.domNumber=domNumber;
     this.nodeType=nodeType;
-    this.attribute_name=attribute_name;
-    this.attribute_value=attribute_value;
     this.x0=x0;
     this.y0=y0;
     this.x1=x1;
@@ -338,9 +336,10 @@ Node.prototype.addToChildData = function() {
 	var str="";
 	for(var x=0;x<childNodes.length;x++){
 		if(x<childNodes.length-1){
-			str+='{ \"arktos\":"'+ childNodes[x].arktos+'",\"domid\":"'+ childNodes[x].domid+'",\"id\":"'+ childNodes[x].getId()+'",\n \"name\":"'+ childNodes[x].getNodeName()+'",\n \"data\": {\"childhash\":"'+childNodes[x].childHash+'",\n \"type\":"'+childNodes[x].nodeType+'",\n \"attribute_name\":"'+childNodes[x].attribute_name+'",\n \"attribute_value\":"'+childNodes[x].attribute_value+'",\n \"x0\":"'+childNodes[x].x0+'",\n \"y0\":"'+childNodes[x].y0+'",\n \"x1\":"'+childNodes[x].x1+'",\n \"y1\":"'+childNodes[x].y1+'",\n \"isClickable\":"'+childNodes[x].clickable+'",\n \"isVisible\":"'+childNodes[x].visible+'",\n \"parentId\":"'+childNodes[x].parent+'",\n \"childElements\":"'+childNodes[x].getChildren()+'",\n \"xpath\":"'+childNodes[x].xpath+'",\n \"zindex\":"'+childNodes[x].zindex+'\"},\n \"children\":['+childNodes[x].addToChildData()+']}, ';
-		}else{
-			str+='{ \"arktos\":"'+ childNodes[x].arktos+'",\"domid\":"'+ childNodes[x].domid+'",\"id\":"'+ childNodes[x].getId()+'",\n \"name\":"'+ childNodes[x].getNodeName()+'",\n \"data\": {\"childhash\":"'+childNodes[x].childHash+'",\n \"type\":"'+childNodes[x].nodeType+'",\n \"attribute_name\":"'+childNodes[x].attribute_name+'",\n \"attribute_value\":"'+childNodes[x].attribute_value+'",\n \"x0\":"'+childNodes[x].x0+'",\n \"y0\":"'+childNodes[x].y0+'",\n \"x1\":"'+childNodes[x].x1+'",\n \"y1\":"'+childNodes[x].y1+'",\n \"isClickable\":"'+childNodes[x].clickable+'",\n \"isVisible\":"'+childNodes[x].visible+'",\n \"parentId\":"'+childNodes[x].parent+'",\n \"childElements\":"'+childNodes[x].getChildren()+'",\n \"xpath\":"'+childNodes[x].xpath+'",\n \"zindex\":"'+childNodes[x].zindex+'\"},\n \"children\":['+childNodes[x].addToChildData()+']} ';
+			str+='{ \"arktos\":"'+ childNodes[x].arktos+'", \"domid\":"'+ childNodes[x].domid+'",\"id\":"'+ childNodes[x].getId()+'",\n \"name\":"'+ childNodes[x].getNodeName()+'",\n \"data\": {\"childhash\":"'+childNodes[x].childHash+'",\n \"type\":"'+childNodes[x].nodeType+'",\n \"x0\":"'+childNodes[x].x0+'",\n \"y0\":"'+childNodes[x].y0+'",\n \"x1\":"'+childNodes[x].x1+'",\n \"y1\":"'+childNodes[x].y1+'",\n \"isClickable\":"'+childNodes[x].clickable+'",\n \"isVisible\":"'+childNodes[x].visible+'",\n \"parentId\":"'+childNodes[x].parent+'",\n \"childElements\":"'+childNodes[x].getChildren()+'",\n \"xpath\":"'+childNodes[x].xpath+'",\n \"zindex\":"'+childNodes[x].zindex+'\"},\n \"children\":['+childNodes[x].addToChildData()+']}, ';
+		}
+		else{
+		str+='{ \"arktos\":"'+ childNodes[x].arktos+'",\"domid\":"'+ childNodes[x].domid+'",\"id\":"'+ childNodes[x].getId()+'",\n \"name\":"'+ childNodes[x].getNodeName()+'",\n \"data\": {\"childhash\":"'+childNodes[x].childHash+'",\n \"type\":"'+childNodes[x].nodeType+'",\n \"x0\":"'+childNodes[x].x0+'",\n \"y0\":"'+childNodes[x].y0+'",\n \"x1\":"'+childNodes[x].x1+'",\n \"y1\":"'+childNodes[x].y1+'",\n \"isClickable\":"'+childNodes[x].clickable+'",\n \"isVisible\":"'+childNodes[x].visible+'",\n \"parentId\":"'+childNodes[x].parent+'",\n \"childElements\":"'+childNodes[x].getChildren()+'",\n \"xpath\":"'+childNodes[x].xpath+'",\n \"zindex\":"'+childNodes[x].zindex+'\"},\n \"children\":['+childNodes[x].addToChildData()+']} ';
 		}
 	}
 	return str;
@@ -400,30 +399,18 @@ function levelorderTraversal(root) {
    			if(q1[i].parentNode.visId==undefined && q1[i].parentNode.nodeName=="HTML"){
    				q1[i].parentNode.visId=0;
    	 			returnStuff=getDOMCoords(q1[i].parentNode);
-                var attLen=q1[i].attributes.length;
-                if(attLen>0){
-                    for(var j=0; j<attLen; j++){
-                        allNodes.push(new Node(q1[i].parentNode.getAttribute('arktos'),"notPresent",q1[i].parentNode.nodeName,q1[i].parentNode.visId,-1,q1[i].parentNode.nodeType,q1[i].attributes[j].nodeName,q1[i].attributes[j].nodeValue,returnStuff[0],returnStuff[1],(returnStuff[0]+returnStuff[2]),(returnStuff[1]+returnStuff[3]),0,getElementXPath(q1[i]),11111111,1));
-                    }
-                }else{
-                    allNodes.push(new Node(q1[i].parentNode.getAttribute('arktos'),"notPresent",q1[i].parentNode.nodeName,q1[i].parentNode.visId,-1,q1[i].parentNode.nodeType,"","",returnStuff[0],returnStuff[1],(returnStuff[0]+returnStuff[2]),(returnStuff[1]+returnStuff[3]),0,getElementXPath(q1[i]),11111111,1));
-                }
+   				allNodes.push(new Node(q1[i].parentNode.getAttribute('arktos'),"notPresent",q1[i].parentNode.nodeName,q1[i].parentNode.visId,-1,q1[i].parentNode.nodeType,returnStuff[0],returnStuff[1],(returnStuff[0]+returnStuff[2]),(returnStuff[1]+returnStuff[3]),0,getElementXPath(q1[i]),11111111,1));
    			}
     		if(q1[i].parentNode.visId==undefined && q1[i].parentNode.nodeName=="BODY"){
     			returnStuff=getDOMCoords(q1[i].parentNode);
+
    				q1[i].parentNode.visId=1;
-                var attLen=q1[i].attributes.length;
-                if(attLen>0){
-                	for(var j=0; j<attLen; j++){
-                        var n = new Node(q1[i].parentNode.getAttribute('arktos'), "notPresent", q1[i].parentNode.nodeName, q1[i].parentNode.visId, -1, q1[i].parentNode.nodeType, q1[i].attributes[j].nodeName,q1[i].attributes[j].nodeValue,returnStuff[0], returnStuff[1], (returnStuff[0] + returnStuff[2]), (returnStuff[1] + returnStuff[3]), 0, getElementXPath(q1[i]), 11111111, 1);
-                        n.addParent(0);
-                        allNodes.push(n);
-					}
-				}else{
-                    var n = new Node(q1[i].parentNode.getAttribute('arktos'), "notPresent", q1[i].parentNode.nodeName, q1[i].parentNode.visId, -1, q1[i].parentNode.nodeType, "","",returnStuff[0], returnStuff[1], (returnStuff[0] + returnStuff[2]), (returnStuff[1] + returnStuff[3]), 0, getElementXPath(q1[i]), 11111111, 1);
-                    n.addParent(0);
-                    allNodes.push(n);
-                }
+
+   				var n=new Node(q1[i].parentNode.getAttribute('arktos'),"notPresent",q1[i].parentNode.nodeName,q1[i].parentNode.visId,-1,q1[i].parentNode.nodeType,returnStuff[0],returnStuff[1],(returnStuff[0]+returnStuff[2]),(returnStuff[1]+returnStuff[3]),0,getElementXPath(q1[i]),11111111,1);
+   				n.addParent(0);
+
+   				allNodes.push(n);
+
    				idNo++;
    			} else if(q1[i].nodeName=="#text"){
 	   			try{
@@ -453,34 +440,22 @@ function levelorderTraversal(root) {
  				var style = getStyle(q1[i],"z-index");
  				var zIndexVal=-1111111;
  				var visiblityVar=checkIsVisible(q1[i]);
-				if(style){ //null check
-					zIndexVal = parseInt(style); //getPropertyValue("z-index");
-					if(isNaN(zIndexVal)){
-						zIndexVal = 0;
-					}
+						if(style){ //null check
+							zIndexVal = parseInt(style); //getPropertyValue("z-index");
+							if(isNaN(zIndexVal)){
+								zIndexVal = 0;
+							}
+						}
+				try{
+  					var n=new Node(q1[i].getAttribute('arktos'),q1[i].id,q1[i].nodeName,q1[i].visId,-1,q1[i].nodeType, returnStuff[0],returnStuff[1],(returnStuff[0]+returnStuff[2]),(returnStuff[1]+returnStuff[3]),clickVar,getElementXPath(q1[i]),zIndexVal,visiblityVar);
+				}catch(e){
+					// For handling comment tags that do not have an arktos id
+  					var n=new Node(0,q1[i].id,q1[i].nodeName,q1[i].visId,-1,q1[i].nodeType, returnStuff[0],returnStuff[1],(returnStuff[0]+returnStuff[2]),(returnStuff[1]+returnStuff[3]),clickVar,getElementXPath(q1[i]),zIndexVal,visiblityVar);
 				}
-				var attLen=q1[i].attributes.length;
-				if(attLen>0){
-					for(var j=0; j<attLen; j++){
-                        try{
-                            var n=new Node(q1[i].getAttribute('arktos'),q1[i].id,q1[i].nodeName,q1[i].visId,-1,q1[i].nodeType,q1[i].attributes[j].nodeName,q1[i].attributes[j].nodeValue , returnStuff[0],returnStuff[1],(returnStuff[0]+returnStuff[2]),(returnStuff[1]+returnStuff[3]),clickVar,getElementXPath(q1[i]),zIndexVal,visiblityVar);
-                        }catch(e){
-                            // For handling comment tags that do not have an arktos id
-                            var n=new Node(0,q1[i].id,q1[i].nodeName,q1[i].visId,-1,q1[i].nodeType,q1[i].attributes[j].nodeName,q1[i].attributes[j].nodeValue , returnStuff[0],returnStuff[1],(returnStuff[0]+returnStuff[2]),(returnStuff[1]+returnStuff[3]),clickVar,getElementXPath(q1[i]),zIndexVal,visiblityVar);
-                        }
-                        n.addParent(q1[i].parentNode.visId);
-                        allNodes.push(n);
-					}
-				}else{
-                    try{
-                        var n=new Node(q1[i].getAttribute('arktos'),q1[i].id,q1[i].nodeName,q1[i].visId,-1,q1[i].nodeType, "","" , returnStuff[0],returnStuff[1],(returnStuff[0]+returnStuff[2]),(returnStuff[1]+returnStuff[3]),clickVar,getElementXPath(q1[i]),zIndexVal,visiblityVar);
-                    }catch(e){
-                        // For handling comment tags that do not have an arktos id
-                        var n=new Node(0,q1[i].id,q1[i].nodeName,q1[i].visId,-1,q1[i].nodeType,"","" , returnStuff[0],returnStuff[1],(returnStuff[0]+returnStuff[2]),(returnStuff[1]+returnStuff[3]),clickVar,getElementXPath(q1[i]),zIndexVal,visiblityVar);
-                    }
-                    n.addParent(q1[i].parentNode.visId);
-                    allNodes.push(n);
-				}
+   				n.addParent(q1[i].parentNode.visId);
+
+				allNodes.push(n);
+
    				idNo++;
    			}
 

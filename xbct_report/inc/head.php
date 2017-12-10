@@ -5,15 +5,16 @@
 <head>
   <meta http-equiv="Content-Type" content=
   "text/html; charset=us-ascii" />
-      <title>Little-Monkey</title>
+      <title>XBCT</title>
   <link href="inc/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
   <div id="container">
     <div id="header">
-        <h1><img src="/xbct_report/inc/monkey.jpg" width="60" height="70"/>Little-Monkey: Cross-Browser Compability Testing</h1>
-        <h2>&nbsp;</h2><br />
+        <h1><img src="/xbct_report/inc/cupt.png" width="184" height="40"/></h1>
+		<h1>Cross-Browser Compability Testing(XBCT)</h1>
+        <h2>《Web应用的跨浏览器兼容性测试研究》 刘淑坤</h2><br/>
         <hr />
       <script>
       	function mainWindow(){
@@ -27,9 +28,9 @@
     </div><!-- end header -->
 
     <div id="left">
-      <h3>Links</h3>
+      <h3>跳转链接</h3>
 
 	<ul>
-	<li><a href="index.php">Test Sessions</a></li>
+	<li><a href="index.php">测试会话</a></li>
 	</ul>
     </div><!-- end left division -->
