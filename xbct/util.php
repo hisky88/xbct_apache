@@ -42,7 +42,7 @@ function rand_str($length = 4, $chars = 'abcdefghijklmnopqrstuvwxyz1234567890'){
 function addDomDataToDB($data, $testid){
   //log_debug($data);
   global $con;
-  $query = "INSERT INTO domdata (arktos,domid,testid, id, name, type, attribute_name, attribute_value, x0, y0, x1, y1, clickable, visible, parentid, children, xpath, zindex, contenthash) VALUES ";
+  $query = "INSERT INTO domdata (arktos,domid,testid, id, name, type, x0, y0, x1, y1, clickable, visible, parentid, children, xpath, zindex, contenthash) VALUES ";
   $worklist = array($data);
   
   $list = "";
@@ -54,7 +54,7 @@ function addDomDataToDB($data, $testid){
     $data = $node['data'];
     if($node['name'] != "HTML"){
       $cnt++;
-      $list .= "(".$node['arktos'].",'".$node['domid']."',".$testid.",".$node['id'].",'".$node['name']."',".$data['type'].",'".$data['attribute_name']."','".$data['attribute_value']."',".$data['x0'].",".$data['y0'].",".$data['x1'].",".$data['y1'].",".$data['isClickable'].",".$data['isVisible'].",".$data['parentId'].",'".$data['childElements']."','".$data['xpath']."',".$data['zindex'].",'".$data['childhash']."'), \n";
+      $list .= "(".$node['arktos'].",'".$node['domid']."',".$testid.",".$node['id'].",'".$node['name']."',".$data['type'].",".$data['x0'].",".$data['y0'].",".$data['x1'].",".$data['y1'].",".$data['isClickable'].",".$data['isVisible'].",".$data['parentId'].",'".$data['childElements']."','".$data['xpath']."',".$data['zindex'].",'".$data['childhash']."'),\n";
     }
     foreach($node['children'] as $child){
       array_push($worklist,$child);
