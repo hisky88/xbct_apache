@@ -14,7 +14,7 @@
     <div id="header">
         <h1><img src="/xbct_report/inc/cupt.png" width="184" height="40"/></h1>
 		<h1>Cross-Browser Compability Testing(XBCT)</h1>
-        <h2>《Web应用的跨浏览器兼容性测试研究》 刘淑坤</h2><br/>
+        <h2>《Web应用的跨浏览器兼容性测试研究》学生：刘淑坤   导师：韦庆杰</h2><br/>
         <hr />
       <script>
       	function mainWindow(){
